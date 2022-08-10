@@ -1,0 +1,501 @@
+@charset "UTF-8";
+
+/*---------------------------*/
+/*base
+/*---------------------------*/
+html {
+  font-size: 62.5%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 1.6rem;
+  color: #2b2b2b;
+  font-family: sans-serif;
+}
+
+img {
+  width: 100%; /*親要素の中で100％*/
+  vertical-align: bottom; /*画像下に小さな余白ができるのを防ぐ*/
+  object-fit: cover; /*トリミング*/
+  /* object-position: left top;左上を基準に */
+}
+
+a {
+  color: #2b2b2b;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+tbody {
+  vertical-align: inherit;
+}
+th,
+td {
+  font-weight: normal;
+  padding: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style-type: none;
+}
+
+section {
+  text-align: center;
+}
+
+.content-wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+}
+h2 {
+  position: relative;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  font-size: 3.6rem;
+  letter-spacing: 2px;
+  font-family: "poppins", sans-serif;
+}
+h3 {
+  font-size: 2.4rem;
+  font-family: "poppins", sans-serif;
+  margin-top: 16px;
+}
+h2::after {
+  /*sectionのタイトルの下線*/
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 40px;
+  height: 1px;
+  background: #2b2b2b;
+  transform: translateX(-50%);
+}
+p {
+  font-size: 1.6rem;
+  letter-spacing: 1.5;
+  line-height: 1.8;
+}
+p.description {
+  padding-bottom: 40px;
+  line-height: 1.8;
+  letter-spacing: 1.4px;
+}
+/*---------------------------*/
+/*header
+/*---------------------------*/
+.header {
+  position: relative;
+  width: 100%;
+  height: 620px;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../images/header.png);
+  background-size: cover;
+  text-align: center;
+  color: #fff;
+  font-family: "myriad-pro", sans-serif;
+}
+.header-nav {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  height: 64px;
+}
+
+.header-nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-nav-logo {
+  font-size: 36px;
+}
+
+/* 3本線が✖️に */
+/* ボタン外側 */
+.openbtn {
+  position: relative;
+  /* background: #57a2c7; */
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+}
+
+/* ボタン内部 */
+.openbtn span {
+  display: inline-block;
+  transition: all 0.4s;
+  position: absolute;
+  left: 14px;
+  height: 1px;
+  border-radius: 2px;
+  background: #fff;
+  width: 32px;
+}
+.openbtn span:nth-of-type(1) {
+  top: 15px;
+}
+.openbtn span:nth-of-type(2) {
+  top: 23px;
+}
+.openbtn span:nth-of-type(3) {
+  top: 31px;
+}
+
+/*activeクラスが付与されると線が回転して×に*/
+.openbtn.active span:nth-of-type(1) {
+  top: 18px;
+  left: 18px;
+  transform: translateY(6px) rotate(-45deg); /*Y軸を軸とする角度によって時計回りの回転*/
+  width: 32px;
+}
+.openbtn.active span:nth-of-type(2) {
+  opacity: 0; /*真ん中の線は透過*/
+}
+.openbtn.active span:nth-of-type(3) {
+  top: 18px;
+  left: 18px;
+  transform: translateY(6px) rotate(45deg);
+  width: 32px;
+}
+/*---------------------------*/
+/*ナビゲーション
+/*---------------------------*/
+/*縦スクロール*/
+#g-nav.panelactive #g-nav-list {
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+}
+/* 天地中央揃え */
+#g-nav ul {
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#g-nav ul li {
+  font-size: 1.8rem;
+  line-height: 11vh;
+  text-align: center;
+  border: 1px solid #2b2b2b;
+  opacity: 0.5;
+}
+
+/* クリックで下に出現 */
+#g-nav {
+  position: fixed;
+  z-index: 999;
+  /*ナビのスタート位置と形状*/
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.6s;
+}
+/*activeクラスが付いたら位置を０に*/
+#g-nav.panelactive {
+  top: 100px;
+}
+
+/*---------------------------*/
+/*ファーストビュー
+/*---------------------------*/
+
+.title {
+  padding-top: 240px;
+  font-size: 12rem;
+  font-weight: normal;
+}
+.sub-title {
+  word-spacing: 4px; /*単語間*/
+}
+/*左右のライン*/
+.sub-title::before,
+.sub-title::after {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 2px;
+  margin: 0 8px;
+  background: #fff;
+  vertical-align: middle;
+}
+/*---------------------------*/
+/*consept
+/*---------------------------*/
+#concept {
+  width: 100%;
+  padding: 80px 0;
+  background: linear-gradient(#fff 70%, #ededed 30%);
+}
+/*---------------------------*/
+/*work
+/*---------------------------*/
+#work {
+  width: 100%;
+  padding-top: 80px;
+}
+.work-contents {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: space-between;
+  height: 1680px;
+}
+.work-content {
+  width: 420px;
+  padding-bottom: 80px;
+  text-align: left;
+}
+.work-content:nth-of-type(1) {
+  order: 1;
+}
+.work-content:nth-of-type(2) {
+  order: 3;
+  margin-top: 120px;
+}
+.work-content:nth-of-type(3) {
+  order: 2;
+}
+.work-content:nth-of-type(4) {
+  order: 4;
+}
+
+/*---------------------------*/
+/*florist
+/*---------------------------*/
+#florist {
+  width: 100%;
+  padding-top: 80px;
+  background: linear-gradient(#ededed 60%, #fff 40%);
+}
+#florist p {
+  padding-bottom: 40px;
+}
+
+.card-wrapper {
+  width: 100%;
+}
+.cards {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+}
+.card {
+  width: 32%;
+  padding-bottom: 40px;
+}
+/*---------------------------*/
+/*shop information
+/*---------------------------*/
+#shop-information {
+  width: 100%;
+  padding: 80px 0 120px;
+}
+.info-inner {
+  display: flex;
+  justify-content: space-between;
+}
+.info-inner .img {
+  width: 50%;
+}
+table {
+  width: 50%;
+  border-spacing: 15px;
+  padding-left: 50px;
+}
+tr {
+  text-align: left;
+}
+th {
+  width: 25%;
+  border-right: 1px solid #a0a0a0;
+}
+/*---------------------------*/
+/*contact us
+/*---------------------------*/
+#contact {
+  width: 100%;
+  background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url(../images/contact_us.png);
+  background-size: cover;
+  padding: 80px 0;
+}
+.contact-btn {
+  background-color: #fff;
+  border: 1px solid #a0a0a0;
+  position: relative;
+  display: inline-block;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  padding: 20px 40px 20px 80px;
+}
+.contact-btn::before,
+.contact-btn::after {
+  content: "";
+  position: absolute;
+  border-radius: 2px;
+}
+.contact-btn::before {
+  top: 26px;
+  left:30px;
+  width: 30px;
+  height: 20px;
+  border: 1px solid #2b2b2b;
+}
+.contact-btn::after {
+  top: 20px;
+  left: 35px;
+  width: 20px;
+  height: 20px;
+  border-right: 1px solid #2b2b2b;
+  border-bottom: 1px solid #2b2b2b;
+  transform: rotate(45deg);
+}
+/*---------------------------*/
+/*footer
+/*---------------------------*/
+.footer p {
+  line-height: 40px;
+  letter-spacing: 1.4px;
+  text-align: center;
+}
+/*---------------------------------
+  ＊js
+---------------------------------*/
+.effect-fade {
+  opacity: 0;
+  transform: translate(0, 100px);
+  transition: all 2s;
+}
+.effect-fade.effect-scroll {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+@media screen and (max-width: 768px) {
+/*---------------------------*/
+/*florist-sp
+/*---------------------------*/
+.cards{
+  flex-direction: column;
+}
+.card{
+  width: 100%;
+}
+
+  /*---------------------------------
+  ＊base-sp
+---------------------------------*/
+  h1.title {
+    font-size: 6.4rem;
+  }
+  .sub-title {
+    font-size: 1.4rem;
+  }
+  h2 {
+    font-size: 2.8rem;
+  }
+  h3 {
+    font-size: 1.6rem;
+  }
+  p {
+    font-size: 1.4rem;
+  }
+  th,
+  td {
+    font-size: 1.4rem;
+  }
+
+  .content-wrapper {
+    margin: 0 20px;
+  }
+
+  /*---------------------------------
+＊header-sp
+---------------------------------*/
+  .header {
+    height: 75vh;
+  }
+  .header-nav-logo {
+    font-size: 2.4rem;
+  }
+
+  /*---------------------------------
+  ＊work-sp
+---------------------------------*/
+  .work-contents {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    height: 100%;
+  }
+  .work-content{
+    width: 100%;
+  }
+  .work-content:nth-of-type(2) {
+    margin-top: 0;
+  }
+}
+@media screen and (max-width: 375px) {
+/*---------------------------------
+  ＊Shop information-sp
+---------------------------------*/
+#shop-information{
+  padding: 0;
+  margin-bottom: 60px;
+}
+.info-inner{
+  display: block;
+}
+.info-inner .img{
+  width: 100%;
+}
+table{
+  width: 100%;
+  padding:0;
+}
+  /*---------------------------------
+    ＊Contact us-sp
+  ---------------------------------*/
+  .contact-btn {
+  font-size: 1rem;
+  letter-spacing: 2px;
+  padding: 10px 15px 10px 40px;
+  }
+  .contact-btn::before {
+  top: 13px;
+  left:15px;
+  width: 15px;
+  height: 10px;
+}
+.contact-btn::after {
+  top: 9px;
+  left: 18px;
+  width: 10px;
+  height: 10px;
+}
+}
